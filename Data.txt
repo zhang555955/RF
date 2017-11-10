@@ -1,0 +1,19 @@
+*** Settings ***
+Library           Selenium2Library
+Library           DatabaseLibrary
+Library           OperatingSystem
+Library           Screenshot
+Library           String
+
+*** Test Cases ***
+connect
+    connect to database using custom params    pymysql    database='agg',user='yx_user',password='123456',host='192.168.1.249',port=3306
+    ${res}    Query    SELECT * FROM pltm_refund_order WHERE external_orderid='1272415452309'
+    log    ${res}
+    disconnect from database
+
+Evaluate
+    ${result}=    set variable    3.14
+    ${status}=    evaluate    0<${result}<10
+    ${status}=    evaluate    0<$result<10
+    ${random}=    evaluate    random.randint(0,sys.maxint)

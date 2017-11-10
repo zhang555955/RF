@@ -1,0 +1,91 @@
+*** Settings ***
+Library           Selenium2Library
+Library           OperatingSystem
+Library           Screenshot
+Library           DatabaseLibrary
+Resource          国内单程业务.txt
+
+*** Test Cases ***
+其它
+    comment    window.document.getElementById("logBegintime").value="2016-05-18
+    comment    execute javascript    document.documentElement.scrollTop=1000
+    press key    css=input.combo-txt.vldatebox    \ue015    #键盘向下键
+    press key    css=input.combo-txt.vldatebox    \\13    #键盘enter键
+    choose OK on next confirmation    #点击确定
+    Select Checkbox    //*[@id="searchFlightPage"]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div
+    input text    //*[@id="searchFlightPage"]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div    2017--8-3
+    sleep    2
+    Open Browser \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    //打开浏览器
+    Maximize Browser Window    //最大化浏览器
+    Select Window \    \    //聚焦到指定的窗口
+    Title Should Be    \    \    //验证当前页面title，配合Select Window
+    Go To \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    \    //跳转到指定的url地址
+    Go Back \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    \    //模拟点击浏览器返回键
+    Reload Page \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    \    //刷新页面
+    Close Window \ \ \    \    //关闭当前打开的窗口
+    Close Browser    \    \    //关闭当前浏览器
+    Close All Browsers    \    //关闭所有浏览器，并清除缓存
+    Capture Page Screenshot \    \ \ \ \ \ \ \ \ \ \ \ \ \ \ //在当前页面截图
+    Click Button \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //点击页面上的按钮
+    Click Element    \    \    //点击页面上的元素
+    Click Image    \    \    //点击页面上的图片
+    Click Link    \    \    //点击页面上的链接
+    Double Click Element    \    //双击页面上的元素
+    输入
+    Input Password    \    \    //输入密码
+    Input Text    \    \    //输入文本内容
+    Choose File    \    \    //选择系统中的指定文件
+    Press Key | locator | key
+    例子：
+    Press Key | user_name | 大白No1
+    Press Key | sum_btn | \\13 \ \ \ \ \ #ASCII code for
+    特殊编码
+    0： \ Keys.NULL    \    空字符    \    43：Keys.ADD    \    加号
+    8： \ Keys.BACK_SPACE    退格键    \    44：Keys.SEPARATOR    逗号
+    9： \ Keys.TAB    \    制表键    \    45：Keys.SUBTRACT    减号
+    10：Keys.RETURN    换行键    \    46：Keys.DECIMAL    小数点
+    13：Keys.ENTER    \    回车键    \    47：Keys.DIVIDE    \    除号
+    24：Keys.CANCEL    取消    \    59：Keys.SEMICOLON    分号
+    27：Keys.ESCAPE    \    ESC键    \    61： Keys.EQUALS \ \    等号
+    32：Keys.SPACE    \    空格键    \    127：Keys.DELETE    删除键
+    42：Keys.MULTIPLY    乘号
+    Element
+    Focus    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //聚焦
+    Simulate    \    //在被定位的元素上模拟事件
+    Open Context Menu    //打开上下文菜单
+    List
+    Select All From List    //选取所有复选列表的值
+    Select From List    \    //从指定 list 对象中选取某一项
+    Unselect From List    //移除指定 select 下的给定值的被选状态
+    Checkbox
+    Select Checkbox    //选择复选框的对象，已选则不触发。
+    Unselect Checkbox    //移除复选框选取状态
+    Radio Button
+    Select Radio Button    //选择单选框的对象
+    @{order}=    @{order}=    split string    '${res}'
+    ${val}    encode string to bytes    1272415452309    UTF-8
+    should be equal    @{order}    ${val}
+
+serch-case1
+    查询2    北京    SZ
+
+check-case1
+    选择航班    //*[@id="flightListPage"]/div[2]/ul/li[1]/div[1]/div[2]/div[1]/span
+
+order-case1
+    预定    //*[@id="selectCabinPage"]/div[2]/ul/li[1]/div[2]/button/div/div
+
+passenger
+    选择乘机人    //*[@id="bookFlightPage"]/div[1]/div[2]/div[2]/ul/li[11]/button/div/div
+
+pay
+    去支付
+
+打开浏览器
+    打开    http://mobile.yixiangyunda.com/vue/index.html#/
+
+Test
+    Open browser    http://mobile.yixiangyunda.com/vue/index.html#/    chrome    Iphone
+    sleep    3
+    execute Javascript    window.document.getelementById('date').readOnly=false
+    input text    //*[@id="searchFlightPage"]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div/span[1]    2018-01-06
